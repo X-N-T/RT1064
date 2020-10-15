@@ -1,16 +1,16 @@
 /*********************************************************************************************************************
  * COPYRIGHT NOTICE
- * Copyright (c) 2019,Öð·É¿Æ¼¼
+ * Copyright (c) 2019,é€é£žç§‘æŠ€
  * All rights reserved.
- * ¼¼ÊõÌÖÂÛQQÈº£ºÒ»Èº£º179029047(ÒÑÂú)  ¶þÈº£º244861897
+ * æŠ€æœ¯è®¨è®ºQQç¾¤ï¼šä¸€ç¾¤ï¼š179029047(å·²æ»¡)  äºŒç¾¤ï¼š244861897
  *
- * ÒÔÏÂËùÓÐÄÚÈÝ°æÈ¨¾ùÊôÖð·É¿Æ¼¼ËùÓÐ£¬Î´¾­ÔÊÐí²»µÃÓÃÓÚÉÌÒµÓÃÍ¾£¬
- * »¶Ó­¸÷Î»Ê¹ÓÃ²¢´«²¥±¾³ÌÐò£¬ÐÞ¸ÄÄÚÈÝÊ±±ØÐë±£ÁôÖð·É¿Æ¼¼µÄ°æÈ¨ÉùÃ÷¡£
+ * ä»¥ä¸‹æ‰€æœ‰å†…å®¹ç‰ˆæƒå‡å±žé€é£žç§‘æŠ€æ‰€æœ‰ï¼Œæœªç»å…è®¸ä¸å¾—ç”¨äºŽå•†ä¸šç”¨é€”ï¼Œ
+ * æ¬¢è¿Žå„ä½ä½¿ç”¨å¹¶ä¼ æ’­æœ¬ç¨‹åºï¼Œä¿®æ”¹å†…å®¹æ—¶å¿…é¡»ä¿ç•™é€é£žç§‘æŠ€çš„ç‰ˆæƒå£°æ˜Žã€‚
  *
  * @file       		main
- * @company	   		³É¶¼Öð·É¿Æ¼¼ÓÐÏÞ¹«Ë¾
- * @author     		Öð·É¿Æ¼¼(QQ3184284598)
- * @version    		²é¿´docÄÚversionÎÄ¼þ °æ±¾ËµÃ÷
+ * @company	   		æˆéƒ½é€é£žç§‘æŠ€æœ‰é™å…¬å¸
+ * @author     		é€é£žç§‘æŠ€(QQ3184284598)
+ * @version    		æŸ¥çœ‹docå†…versionæ–‡ä»¶ ç‰ˆæœ¬è¯´æ˜Ž
  * @Software 		IAR 8.3 or MDK 5.24
  * @Target core		NXP RT1064DVL6A
  * @Taobao   		https://seekfree.taobao.com/
@@ -18,73 +18,16 @@
  ********************************************************************************************************************/
 
 
-//ÕûÌ×ÍÆ¼öIO²é¿´ProjecctÎÄ¼þ¼ÐÏÂµÄTXTÎÄ±¾
+//æ•´å¥—æŽ¨èIOæŸ¥çœ‹Projecctæ–‡ä»¶å¤¹ä¸‹çš„TXTæ–‡æœ¬
 
 
 
-//´ò¿ªÐÂµÄ¹¤³Ì»òÕß¹¤³ÌÒÆ¶¯ÁËÎ»ÖÃÎñ±ØÖ´ÐÐÒÔÏÂ²Ù×÷
-//µÚÒ»²½ ¹Ø±ÕÉÏÃæËùÓÐ´ò¿ªµÄÎÄ¼þ
-//µÚ¶þ²½ project  clean  µÈ´ýÏÂ·½½ø¶ÈÌõ×ßÍê
+//æ‰“å¼€æ–°çš„å·¥ç¨‹æˆ–è€…å·¥ç¨‹ç§»åŠ¨äº†ä½ç½®åŠ¡å¿…æ‰§è¡Œä»¥ä¸‹æ“ä½œ
+//ç¬¬ä¸€æ­¥ å…³é—­ä¸Šé¢æ‰€æœ‰æ‰“å¼€çš„æ–‡ä»¶
+//ç¬¬äºŒæ­¥ project  clean  ç­‰å¾…ä¸‹æ–¹è¿›åº¦æ¡èµ°å®Œ
 
+//æ•°ç ç®¡
 
-/*
-#include "headfile.h"
-
-
-uint8 gpio_status;
-int main(void)
-{
-  int i;
-    DisableGlobalIRQ();
-    board_init();   //Îñ±Ø±£Áô£¬±¾º¯ÊýÓÃÓÚ³õÊ¼»¯MPU Ê±ÖÓ µ÷ÊÔ´®¿Ú
-    
-    
-    //³õÊ¼»¯GPIO B9 ÎªÊä³ö Ä¬ÈÏÊä³öµÍµçÆ½ Ê¹ÓÃÄ¬ÈÏÒý½ÅÅäÖÃGPIO_PIN_CONFIG
-    gpio_init(C9,GPO,0,GPIO_PIN_CONFIG);
-
-    //³õÊ¼»¯GPIO D0 D1 ÎªÊäÈëÒý½Å
-//    gpio_init(D0 ,GPI,0,GPIO_PIN_CONFIG);
-//    gpio_init(D1 ,GPI,0,GPIO_PIN_CONFIG);
-    pwm_init(PWM2_MODULE1_CHB_C9, 50, 5000);
-    EnableGlobalIRQ(0);
-    
-    
-    
-    while(1)
-    {
-        gpio_set(B9,1);//ÉèÖÃÒý½ÅµçÆ½Îª¸ßµçÆ½
-        systick_delay_ms(100);
-        gpio_set(B9,0);//ÉèÖÃÒý½ÅµçÆ½ÎªµÍµçÆ½
-        systick_delay_ms(100);
-        gpio_toggle(B9);//·­×ªÒý½ÅµçÆ½
-        systick_delay_ms(100);
-        
-        
-        
-        gpio_status = gpio_get(D0);//»ñÈ¡Òý½ÅµçÆ½
-        systick_delay_ms(100);
-        
-    }
-    while (1)
-    {
-     for(i=0;i<=1000;i++)
-      {
-      pwm_duty(PWM2_MODULE1_CHB_C9,50*(1000-i));
-    systick_delay_ms(1);
-      }
-      for(i=0;i<=1000;i++)
-      {
-      pwm_duty(PWM2_MODULE1_CHB_C9,50*i);
-   systick_delay_ms(1);
-    }
-      pwm_duty(PWM2_MODULE1_CHB_C9,5000);
-      systick_delay_ms(1);
-      pwm_duty(PWM2_MODULE1_CHB_C9,0);
-      systick_delay_ms(1);
-    }
-  
-}
-*/
 
 #include "headfile.h"
 
@@ -134,7 +77,7 @@ void led_disp(void)
 int main(void)
 {
     DisableGlobalIRQ();
-    board_init();   //Îñ±Ø±£Áô£¬±¾º¯ÊýÓÃÓÚ³õÊ¼»¯MPU Ê±ÖÓ µ÷ÊÔ´®¿Ú
+    board_init();   //åŠ¡å¿…ä¿ç•™ï¼Œæœ¬å‡½æ•°ç”¨äºŽåˆå§‹åŒ–MPU æ—¶é’Ÿ è°ƒè¯•ä¸²å£
     
 
 
@@ -157,12 +100,12 @@ int main(void)
     
     while(1)
     {
-      //ÐèÒª¹Ø¶¨Ê±Æ÷ÖÐ¶Ï  
+      //éœ€è¦å…³å®šæ—¶å™¨ä¸­æ–­  
 
       led_disp();
 //      systick_delay_ms(20);
       
-      //ÐèÒª¿ª¶¨Ê±Æ÷ÖÐ¶Ï  
+      //éœ€è¦å¼€å®šæ—¶å™¨ä¸­æ–­  
     }
 
     
