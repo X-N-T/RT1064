@@ -1,16 +1,16 @@
 /*********************************************************************************************************************
  * COPYRIGHT NOTICE
- * Copyright (c) 2019,é€é£žç§‘æŠ€
+ * Copyright (c) 2019,Öð·É¿Æ¼¼
  * All rights reserved.
- * æŠ€æœ¯è®¨è®ºQQç¾¤ï¼šä¸€ç¾¤ï¼š179029047(å·²æ»¡)  äºŒç¾¤ï¼š244861897
+ * ¼¼ÊõÌÖÂÛQQÈº£ºÒ»Èº£º179029047(ÒÑÂú)  ¶þÈº£º244861897
  *
- * ä»¥ä¸‹æ‰€æœ‰å†…å®¹ç‰ˆæƒå‡å±žé€é£žç§‘æŠ€æ‰€æœ‰ï¼Œæœªç»å…è®¸ä¸å¾—ç”¨äºŽå•†ä¸šç”¨é€”ï¼Œ
- * æ¬¢è¿Žå„ä½ä½¿ç”¨å¹¶ä¼ æ’­æœ¬ç¨‹åºï¼Œä¿®æ”¹å†…å®¹æ—¶å¿…é¡»ä¿ç•™é€é£žç§‘æŠ€çš„ç‰ˆæƒå£°æ˜Žã€‚
+ * ÒÔÏÂËùÓÐÄÚÈÝ°æÈ¨¾ùÊôÖð·É¿Æ¼¼ËùÓÐ£¬Î´¾­ÔÊÐí²»µÃÓÃÓÚÉÌÒµÓÃÍ¾£¬
+ * »¶Ó­¸÷Î»Ê¹ÓÃ²¢´«²¥±¾³ÌÐò£¬ÐÞ¸ÄÄÚÈÝÊ±±ØÐë±£ÁôÖð·É¿Æ¼¼µÄ°æÈ¨ÉùÃ÷¡£
  *
  * @file       		main
- * @company	   		æˆéƒ½é€é£žç§‘æŠ€æœ‰é™å…¬å¸
- * @author     		é€é£žç§‘æŠ€(QQ3184284598)
- * @version    		æŸ¥çœ‹docå†…versionæ–‡ä»¶ ç‰ˆæœ¬è¯´æ˜Ž
+ * @company	   		³É¶¼Öð·É¿Æ¼¼ÓÐÏÞ¹«Ë¾
+ * @author     		Öð·É¿Æ¼¼(QQ3184284598)
+ * @version    		²é¿´docÄÚversionÎÄ¼þ °æ±¾ËµÃ÷
  * @Software 		IAR 8.3 or MDK 5.24
  * @Target core		NXP RT1064DVL6A
  * @Taobao   		https://seekfree.taobao.com/
@@ -18,97 +18,43 @@
  ********************************************************************************************************************/
 
 
-//æ•´å¥—æŽ¨èIOæŸ¥çœ‹Projecctæ–‡ä»¶å¤¹ä¸‹çš„TXTæ–‡æœ¬
+//ÕûÌ×ÍÆ¼öIO²é¿´ProjecctÎÄ¼þ¼ÐÏÂµÄTXTÎÄ±¾
 
 
 
-//æ‰“å¼€æ–°çš„å·¥ç¨‹æˆ–è€…å·¥ç¨‹ç§»åŠ¨äº†ä½ç½®åŠ¡å¿…æ‰§è¡Œä»¥ä¸‹æ“ä½œ
-//ç¬¬ä¸€æ­¥ å…³é—­ä¸Šé¢æ‰€æœ‰æ‰“å¼€çš„æ–‡ä»¶
-//ç¬¬äºŒæ­¥ project  clean  ç­‰å¾…ä¸‹æ–¹è¿›åº¦æ¡èµ°å®Œ
+//´ò¿ªÐÂµÄ¹¤³Ì»òÕß¹¤³ÌÒÆ¶¯ÁËÎ»ÖÃÎñ±ØÖ´ÐÐÒÔÏÂ²Ù×÷
+//µÚÒ»²½ ¹Ø±ÕÉÏÃæËùÓÐ´ò¿ªµÄÎÄ¼þ
+//µÚ¶þ²½ project  clean  µÈ´ýÏÂ·½½ø¶ÈÌõ×ßÍê
 
-//æ•°ç ç®¡
 
 
 #include "headfile.h"
 
 
-uint8 gpio_status;
-
-uint8 table_seg[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f};
-uint8 disp_buf[2];
-uint8 data;
-
-void led_disp(void)
-{
-    int i;
-    disp_buf[1] = data/10;
-    disp_buf[0] = data%10;
-    data=data+0x01;
-    for(i=0;i<=50;i++)
-    {
-    gpio_set(C8, (table_seg[ disp_buf[0] ]&0x01) );
-    gpio_set(C9, ( table_seg[ disp_buf[0] ]>>1&0x01) );
-    gpio_set(C10, ( table_seg[ disp_buf[0] ]>>2&0x01) ); 
-    gpio_set(C11, ( table_seg[ disp_buf[0] ]>>3&0x01) ); 
-    gpio_set(C12, ( table_seg[ disp_buf[0] ]>>4&0x01) ); 
-    gpio_set(C13, ( table_seg[ disp_buf[0] ]>>5&0x01) );
-    gpio_set(C14, ( table_seg[ disp_buf[0] ]>>6&0x01) );
-    gpio_set(C15, ( table_seg[ disp_buf[0] ]>>7&0x01) );
-    gpio_set(C5,0);
-    systick_delay_ms(10);
-    gpio_set(C5,1);
-    
-    gpio_set(C8, (table_seg[ disp_buf[1] ]&0x01) );
-    gpio_set(C9, ( table_seg[ disp_buf[1] ]>>1&0x01) );
-    gpio_set(C10, ( table_seg[ disp_buf[1] ]>>2&0x01) ); 
-    gpio_set(C11, ( table_seg[ disp_buf[1] ]>>3&0x01) ); 
-    gpio_set(C12, ( table_seg[ disp_buf[1] ]>>4&0x01) ); 
-    gpio_set(C13, ( table_seg[ disp_buf[1] ]>>5&0x01) );
-    gpio_set(C14, ( table_seg[ disp_buf[1] ]>>6&0x01) );
-    gpio_set(C15, ( table_seg[ disp_buf[1] ]>>7&0x01) );
-    gpio_set(C6,0);
-    systick_delay_ms(10);
-    gpio_set(C6,1); 
-    }
-}
-
-
-
+//ÊµÑéÏÖÏóËµÃ÷£º
+//ºËÐÄ°åLED»áÉÁË¸ÆðÀ´
 int main(void)
 {
-    DisableGlobalIRQ();
-    board_init();   //åŠ¡å¿…ä¿ç•™ï¼Œæœ¬å‡½æ•°ç”¨äºŽåˆå§‹åŒ–MPU æ—¶é’Ÿ è°ƒè¯•ä¸²å£
+	DisableGlobalIRQ();
+    board_init();//Îñ±Ø±£Áô£¬±¾º¯ÊýÓÃÓÚ³õÊ¼»¯MPU Ê±ÖÓ µ÷ÊÔ´®¿Ú
     
-
-
-    gpio_init(C5,GPO,1,GPIO_PIN_CONFIG);
-    gpio_init(C6,GPO,1,GPIO_PIN_CONFIG);
     
-    gpio_init(C8,GPO,0,GPIO_PIN_CONFIG);
-    gpio_init(C9,GPO,0,GPIO_PIN_CONFIG);
-    gpio_init(C10,GPO,0,GPIO_PIN_CONFIG);   
-    gpio_init(C11,GPO,0,GPIO_PIN_CONFIG);
-    gpio_init(C12,GPO,0,GPIO_PIN_CONFIG);
-    gpio_init(C13,GPO,0,GPIO_PIN_CONFIG);
-    gpio_init(C14,GPO,0,GPIO_PIN_CONFIG);
-    gpio_init(C15,GPO,0,GPIO_PIN_CONFIG);
-
-   
+   gpio_init(C9,GPO,1,GPIO_PIN_CONFIG);
+   pwm_init(PWM2_MODULE1_CHB_C9, 50, 50000);
+/*     gpio_init(C4,GPI,0,GPIO_PIN_CONFIG);
+    pit_init();                     //³õÊ¼»¯pitÍâÉè
+    pit_interrupt_ms(PIT_CH0,100);  //³õÊ¼»¯pitÍ¨µÀ0 ÖÜÆÚ
+	NVIC_SetPriority(PIT_IRQn,15);  //ÉèÖÃÖÐ¶ÏÓÅÏÈ¼¶ ·¶Î§0-15 Ô½Ð¡ÓÅÏÈ¼¶Ô½¸ß ËÄÂ·PIT¹²ÓÃÒ»¸öPITÖÐ¶Ïº¯Êý
+ */
+    gpio_interrupt_init(C4,FALLING,GPIO_PIN_CONFIG);
+    NVIC_SetPriority(GPIO2_Combined_16_31_IRQn,1);
     EnableGlobalIRQ(0);
-    
-    
-    
-    while(1)
+    //pitµÄÖÐ¶Ïº¯ÊýÔÚisr.cÎÄ¼þ  Ãû³ÆÎªPIT_IRQHandler
+    while (1)
     {
-      //éœ€è¦å…³å®šæ—¶å™¨ä¸­æ–­  
-
-      led_disp();
-//      systick_delay_ms(20);
-      
-      //éœ€è¦å¼€å®šæ—¶å™¨ä¸­æ–­  
+      pwm_duty(PWM2_MODULE1_CHB_C9,50000);
+      systick_delay_ms(100);
+      pwm_duty(PWM2_MODULE1_CHB_C9,0);
+      systick_delay_ms(100);
     }
-
-    
 }
-
-
