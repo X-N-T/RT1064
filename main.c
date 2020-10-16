@@ -1,16 +1,16 @@
 /*********************************************************************************************************************
  * COPYRIGHT NOTICE
- * Copyright (c) 2019,Öð·É¿Æ¼¼
+ * Copyright (c) 2019,é€é£žç§‘æŠ€
  * All rights reserved.
- * ¼¼ÊõÌÖÂÛQQÈº£ºÒ»Èº£º179029047(ÒÑÂú)  ¶þÈº£º244861897
+ * æŠ€æœ¯è®¨è®ºQQç¾¤ï¼šä¸€ç¾¤ï¼š179029047(å·²æ»¡)  äºŒç¾¤ï¼š244861897
  *
- * ÒÔÏÂËùÓÐÄÚÈÝ°æÈ¨¾ùÊôÖð·É¿Æ¼¼ËùÓÐ£¬Î´¾­ÔÊÐí²»µÃÓÃÓÚÉÌÒµÓÃÍ¾£¬
- * »¶Ó­¸÷Î»Ê¹ÓÃ²¢´«²¥±¾³ÌÐò£¬ÐÞ¸ÄÄÚÈÝÊ±±ØÐë±£ÁôÖð·É¿Æ¼¼µÄ°æÈ¨ÉùÃ÷¡£
+ * ä»¥ä¸‹æ‰€æœ‰å†…å®¹ç‰ˆæƒå‡å±žé€é£žç§‘æŠ€æ‰€æœ‰ï¼Œæœªç»å…è®¸ä¸å¾—ç”¨äºŽå•†ä¸šç”¨é€”ï¼Œ
+ * æ¬¢è¿Žå„ä½ä½¿ç”¨å¹¶ä¼ æ’­æœ¬ç¨‹åºï¼Œä¿®æ”¹å†…å®¹æ—¶å¿…é¡»ä¿ç•™é€é£žç§‘æŠ€çš„ç‰ˆæƒå£°æ˜Žã€‚
  *
  * @file       		main
- * @company	   		³É¶¼Öð·É¿Æ¼¼ÓÐÏÞ¹«Ë¾
- * @author     		Öð·É¿Æ¼¼(QQ3184284598)
- * @version    		²é¿´docÄÚversionÎÄ¼þ °æ±¾ËµÃ÷
+ * @company	   		æˆéƒ½é€é£žç§‘æŠ€æœ‰é™å…¬å¸
+ * @author     		é€é£žç§‘æŠ€(QQ3184284598)
+ * @version    		æŸ¥çœ‹docå†…versionæ–‡ä»¶ ç‰ˆæœ¬è¯´æ˜Ž
  * @Software 		IAR 8.3 or MDK 5.24
  * @Target core		NXP RT1064DVL6A
  * @Taobao   		https://seekfree.taobao.com/
@@ -18,43 +18,10 @@
  ********************************************************************************************************************/
 
 
-//ÕûÌ×ÍÆ¼öIO²é¿´ProjecctÎÄ¼þ¼ÐÏÂµÄTXTÎÄ±¾
+//æ•´å¥—æŽ¨èIOæŸ¥çœ‹Projecctæ–‡ä»¶å¤¹ä¸‹çš„TXTæ–‡æœ¬
 
 
 
-//´ò¿ªÐÂµÄ¹¤³Ì»òÕß¹¤³ÌÒÆ¶¯ÁËÎ»ÖÃÎñ±ØÖ´ÐÐÒÔÏÂ²Ù×÷
-//µÚÒ»²½ ¹Ø±ÕÉÏÃæËùÓÐ´ò¿ªµÄÎÄ¼þ
-//µÚ¶þ²½ project  clean  µÈ´ýÏÂ·½½ø¶ÈÌõ×ßÍê
-
-
-
-#include "headfile.h"
-
-
-//ÊµÑéÏÖÏóËµÃ÷£º
-//ºËÐÄ°åLED»áÉÁË¸ÆðÀ´
-int main(void)
-{
-	DisableGlobalIRQ();
-    board_init();//Îñ±Ø±£Áô£¬±¾º¯ÊýÓÃÓÚ³õÊ¼»¯MPU Ê±ÖÓ µ÷ÊÔ´®¿Ú
-    
-    
-   gpio_init(C9,GPO,1,GPIO_PIN_CONFIG);
-   pwm_init(PWM2_MODULE1_CHB_C9, 50, 50000);
-/*     gpio_init(C4,GPI,0,GPIO_PIN_CONFIG);
-    pit_init();                     //³õÊ¼»¯pitÍâÉè
-    pit_interrupt_ms(PIT_CH0,100);  //³õÊ¼»¯pitÍ¨µÀ0 ÖÜÆÚ
-	NVIC_SetPriority(PIT_IRQn,15);  //ÉèÖÃÖÐ¶ÏÓÅÏÈ¼¶ ·¶Î§0-15 Ô½Ð¡ÓÅÏÈ¼¶Ô½¸ß ËÄÂ·PIT¹²ÓÃÒ»¸öPITÖÐ¶Ïº¯Êý
- */
-    gpio_interrupt_init(C4,FALLING,GPIO_PIN_CONFIG);
-    NVIC_SetPriority(GPIO2_Combined_16_31_IRQn,1);
-    EnableGlobalIRQ(0);
-    //pitµÄÖÐ¶Ïº¯ÊýÔÚisr.cÎÄ¼þ  Ãû³ÆÎªPIT_IRQHandler
-    while (1)
-    {
-      pwm_duty(PWM2_MODULE1_CHB_C9,50000);
-      systick_delay_ms(100);
-      pwm_duty(PWM2_MODULE1_CHB_C9,0);
-      systick_delay_ms(100);
-    }
-}
+//æ‰“å¼€æ–°çš„å·¥ç¨‹æˆ–è€…å·¥ç¨‹ç§»åŠ¨äº†ä½ç½®åŠ¡å¿…æ‰§è¡Œä»¥ä¸‹æ“ä½œ
+//ç¬¬ä¸€æ­¥ å…³é—­ä¸Šé¢æ‰€æœ‰æ‰“å¼€çš„æ–‡ä»¶
+//ç¬¬äºŒæ­¥ project  clean  ç­‰å¾…ä¸‹æ–¹è¿›åº¦æ¡èµ°å®Œ
