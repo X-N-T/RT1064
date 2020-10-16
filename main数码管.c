@@ -1,16 +1,16 @@
 /*********************************************************************************************************************
  * COPYRIGHT NOTICE
- * Copyright (c) 2019,��ɿƼ�
+ * Copyright (c) 2019,逐飞科技
  * All rights reserved.
- * ��������QQȺ��һȺ��179029047(����)  ��Ⱥ��244861897
+ * 技术讨论QQ群：一群：179029047(已满)  二群：244861897
  *
- * �����������ݰ�Ȩ������ɿƼ����У�δ����������������ҵ��;��
- * ��ӭ��λʹ�ò������������޸�����ʱ���뱣����ɿƼ��İ�Ȩ������
+ * 以下所有内容版权均属逐飞科技所有，未经允许不得用于商业用途，
+ * 欢迎各位使用并传播本程序，修改内容时必须保留逐飞科技的版权声明。
  *
  * @file       		main
- * @company	   		�ɶ���ɿƼ����޹�˾
- * @author     		��ɿƼ�(QQ3184284598)
- * @version    		�鿴doc��version�ļ� �汾˵��
+ * @company	   		成都逐飞科技有限公司
+ * @author     		逐飞科技(QQ3184284598)
+ * @version    		查看doc内version文件 版本说明
  * @Software 		IAR 8.3 or MDK 5.24
  * @Target core		NXP RT1064DVL6A
  * @Taobao   		https://seekfree.taobao.com/
@@ -18,13 +18,13 @@
  ********************************************************************************************************************/
 
 
-//�����Ƽ�IO�鿴Projecct�ļ����µ�TXT�ı�
+//整套推荐IO查看Projecct文件夹下的TXT文本
 
 
 
-//���µĹ��̻��߹����ƶ���λ�����ִ�����²���
-//��һ�� �ر��������д򿪵��ļ�
-//�ڶ��� project  clean  �ȴ��·�����������
+//打开新的工程或者工程移动了位置务必执行以下操作
+//第一步 关闭上面所有打开的文件
+//第二步 project  clean  等待下方进度条走完
 
 
 /*
@@ -36,13 +36,13 @@ int main(void)
 {
   int i;
     DisableGlobalIRQ();
-    board_init();   //��ر��������������ڳ�ʼ��MPU ʱ�� ���Դ���
+    board_init();   //务必保留，本函数用于初始化MPU 时钟 调试串口
     
     
-    //��ʼ��GPIO B9 Ϊ��� Ĭ������͵�ƽ ʹ��Ĭ����������GPIO_PIN_CONFIG
+    //初始化GPIO B9 为输出 默认输出低电平 使用默认引脚配置GPIO_PIN_CONFIG
     gpio_init(C9,GPO,0,GPIO_PIN_CONFIG);
 
-    //��ʼ��GPIO D0 D1 Ϊ��������
+    //初始化GPIO D0 D1 为输入引脚
 //    gpio_init(D0 ,GPI,0,GPIO_PIN_CONFIG);
 //    gpio_init(D1 ,GPI,0,GPIO_PIN_CONFIG);
     pwm_init(PWM2_MODULE1_CHB_C9, 50, 5000);
@@ -52,16 +52,16 @@ int main(void)
     
     while(1)
     {
-        gpio_set(B9,1);//�������ŵ�ƽΪ�ߵ�ƽ
+        gpio_set(B9,1);//设置引脚电平为高电平
         systick_delay_ms(100);
-        gpio_set(B9,0);//�������ŵ�ƽΪ�͵�ƽ
+        gpio_set(B9,0);//设置引脚电平为低电平
         systick_delay_ms(100);
-        gpio_toggle(B9);//��ת���ŵ�ƽ
+        gpio_toggle(B9);//翻转引脚电平
         systick_delay_ms(100);
         
         
         
-        gpio_status = gpio_get(D0);//��ȡ���ŵ�ƽ
+        gpio_status = gpio_get(D0);//获取引脚电平
         systick_delay_ms(100);
         
     }
@@ -91,7 +91,7 @@ int main(void)
 
 uint8 gpio_status;
 
-uint8 table_seg[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f};
+uint8 table_seg[]={0x3f,0xcc,0x5a,0x4f,0x66,0x6d,0x7d,0x07,0x8f,0x6f};
 uint8 disp_buf[2];
 uint8 data;
 
@@ -134,7 +134,7 @@ void led_disp(void)
 int main(void)
 {
     DisableGlobalIRQ();
-    board_init();   //��ر��������������ڳ�ʼ��MPU ʱ�� ���Դ���
+    board_init();   //务必保留，本函数用于初始化MPU 时钟 调试串口
     
 
 
@@ -157,12 +157,12 @@ int main(void)
     
     while(1)
     {
-      //��Ҫ�ض�ʱ���ж�  
+      //需要关定时器中断  
 
       led_disp();
 //      systick_delay_ms(20);
       
-      //��Ҫ����ʱ���ж�  
+      //需要开定时器中断  
     }
 
     
